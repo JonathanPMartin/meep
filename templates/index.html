@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="carousel carousel-slider center" id="jobCarousel" style="border: 2px solid black; padding: 10px;">
+    {% for job in jobs %}
+    <div class="carousel-item white-text" style="background-color: {% if loop.index0 % 2 == 0 %}#1976d2{% else %}#388e3c{% endif %};">
+        <h2>{{ job.title }}-{{ job.company }}</h2>
+        
+        <p class="white-text">{{ job.location }}</p>
+        <p class="white-text">{{ job.discription }}</p>
+        <p class="white-text">Salary: £{{ job.min_salary }} - £{{ job.max_salary }}</p>
+        <a href="{{ job.job_url }}" class="btn" target="_blank">View Job</a>
+        <form action="{{ url_for('hide_job', jid=job.jid) }}" method="POST" style="display:inline;">
+            <button type="submit" class="btn red">Delete</button>
+        </form>
+        </div>
+      {% endfor %}
+    </div>
+<div style="text-align: center; margin-top: 20px;">
+    <button class="btn" id="prevBtn" onclick="carouselPrev()">← Previous</button>
+    <button class="btn" id="nextBtn" onclick="carouselNext()">Next →</button>
+</div>
+    <form action="/add_job" method="post">
+        <input type="text" name="title" placeholder="Job Title">
+        <input type="text" name="location" placeholder="Location">
+        <input type="number" name="min_salary" placeholder="Minimum Salary">
+        <input type="number" name="max_salary" placeholder="Maximum Salary">
+        <button type="submit">Add Job</button>
+    </form>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        var elem = document.getElementById('jobCarousel');
+        M.Carousel.init(elem, {});
+    });
+
+    function carouselNext() {
+        var elem = document.getElementById('jobCarousel');
+        var instance = M.Carousel.getInstance(elem);
+        instance.next();
+    }
+
+    function carouselPrev() {
+        var elem = document.getElementById('jobCarousel');
+        var instance = M.Carousel.getInstance(elem);
+        instance.prev();
+    }
+</script>
+
+<style>
+    .carousel-indicators {
+        display: none !important;
+        pointer-events: none !important;
+    }
+    
+    .carousel {
+        pointer-events: auto;
+    }
+    
+    .carousel-item {
+        pointer-events: auto;
+    }
+    
+    .carousel-item .btn,
+    .carousel-item button,
+    .carousel-item form,
+    .carousel-item a {
+        pointer-events: auto !important;
+    }
+    @media (max-width: 600px) {
+
+    .carousel.carousel-slider .carousel-item h2 {
+        font-size: 1rem !important;
+    }
+
+    .carousel.carousel-slider .carousel-item p {
+        font-size: 0.8rem !important;
+    }
+
+    .carousel.carousel-slider .carousel-item {
+        padding: 10px !important;
+    }
+
+    .carousel.carousel-slider {
+        height: 300px !important;
+    }
+}
+</style>
+{% endblock %}
