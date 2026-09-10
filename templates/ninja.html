@@ -1,0 +1,19 @@
+{% extends 'base.html' %}
+{% block content %}
+    <form method="POST" action="{{ url_for('ninja_jobs') }}">
+        <div class="form-group">
+            <label for="keyword">Keyword:</label>
+            <input type="text" class="form-control" id="keyword" name="keyword" required>
+        </div>
+        <div class="form-group">
+            <label for="location">Location:</label>
+            <input type="text" class="form-control" id="location" name="location" required>
+        </div>
+        
+        
+        <div class="form-group">
+            <label for="pages">Number of Pages:</label>
+            <input type="number" class="form-control" id="pages" name="pages" min="1" max="100" value="10">
+        </div>
+        <button type="submit" class="btn btn-primary">Search</button>
+{% endblock %}

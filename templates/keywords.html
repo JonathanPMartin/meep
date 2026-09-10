@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class ="container">
+    <h2>Thrown Keywords</h2>
+    <ul class="collection">
+        {% for keyword in keywords %}
+        <li class="collection-item">
+            {{ keyword.keyword }}
+            <form action="{{ url_for('delete_keyword', kid=keyword.kid) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn red">Delete</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('add_keyword') }}" method="POST">
+        <div class="input-field">
+            <input type="text" id="keyword" name="keyword" required>
+            <label for="keyword">New Keyword</label>
+        </div>
+        <button type="submit" class="btn">Add Keyword</button>
+    </form>
+</div>
+{% endblock %}

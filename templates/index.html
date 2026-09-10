@@ -5,11 +5,11 @@
     {% for job in jobs %}
     <div class="carousel-item white-text" style="background-color: {% if loop.index0 % 2 == 0 %}#1976d2{% else %}#388e3c{% endif %};">
         <h2>{{ job.title }}-{{ job.company }}</h2>
-        
+       
         <p class="white-text">{{ job.location }}</p>
         <p class="white-text">{{ job.discription }}</p>
         <p class="white-text">Salary: £{{ job.min_salary }} - £{{ job.max_salary }}</p>
-        <a href="{{ job.job_url }}" class="btn" target="_blank">View Job</a>
+         <a href="{{ job.job_url }}" class="btn" target="_blank">View Job</a>
         <form action="{{ url_for('hide_job', jid=job.jid) }}" method="POST" style="display:inline;">
             <button type="submit" class="btn red">Delete</button>
         </form>
@@ -19,6 +19,12 @@
 <div style="text-align: center; margin-top: 20px;">
     <button class="btn" id="prevBtn" onclick="carouselPrev()">← Previous</button>
     <button class="btn" id="nextBtn" onclick="carouselNext()">Next →</button>
+</div>
+<div style="text-align: center; margin-top: 20px;">
+    <a href="{{ url_for('set_source', source='all') }}" class="btn">Show All Jobs</a>
+    <a href="{{ url_for('set_source', source='Reed') }}" class="btn">Show Reed Jobs</a>
+    <a href="{{ url_for('set_source', source='Adzuna') }}" class="btn">Show Adzuna Jobs</a>
+    <a href="{{ url_for('set_source', source='OpenWebNinja') }}" class="btn">Show OpenWebNinja Jobs</a>
 </div>
     <form action="/add_job" method="post">
         <input type="text" name="title" placeholder="Job Title">
@@ -74,13 +80,13 @@
     }
 
     .carousel.carousel-slider .carousel-item p {
-        font-size: 0.8rem !important;
+        font-size: 0.6rem !important;
     }
 
     .carousel.carousel-slider .carousel-item {
         padding: 10px !important;
     }
-
+    
     .carousel.carousel-slider {
         height: 300px !important;
     }

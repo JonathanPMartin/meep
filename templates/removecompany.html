@@ -1,0 +1,22 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="container">
+    <h2>Remove Company</h2>
+    <ul class="collection">
+        {% for company in companies %}
+        <li class="collection-item">
+            {{ company.company }}
+            <form action="{{ url_for('undo_removed_company', cid=company.cid) }}" method="POST" style="display:inline;">
+                <button type="submit" class="btn green">Undo Remove</button>
+            </form>
+        </li>
+        {% endfor %}
+    <form action="{{ url_for('remove_company') }}" method="POST">
+        <div class="input-field">
+            <input type="text" id="company" name="company" required>
+            <label for="company">Company Name</label>
+        </div>
+        <button type="submit" class="btn red">Remove Company</button>
+    </form>
+</div>
+{% endblock %}
